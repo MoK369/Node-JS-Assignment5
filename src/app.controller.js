@@ -1,25 +1,18 @@
 // @ts-check
-import { sequelize, testDbConnection } from "./db/db.connection.js";
 import express from "express";
-import userRouter from "./modules/user/user.controller.js";
-import postRouter from "./modules/post/post.controller.js";
-import applyAssociations from "./db/association/models.association.js";
 
 async function bootstrap() {
   // Testing Database Connection
-  const result = await testDbConnection();
+  const result = true;
   if (result) {
     // Sync All Model to Database
-    applyAssociations();
-    await sequelize.sync({ force: false });
 
     const app = express();
     const port = 3000;
 
     app.use(express.json());
     // APIs Routes
-    app.use("/user", userRouter);
-    app.use("/post", postRouter);
+
     app.all("{/*d}", (req, res, next) => {
       return res
         .status(400)
