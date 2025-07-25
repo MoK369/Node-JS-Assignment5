@@ -5,6 +5,7 @@ import { CommentsModel } from "../models/comments.model.js";
 
 function applyAssociations() {
   UsersModel.hasMany(PostsModel, {
+    as: "user",
     foreignKey: {
       name: "userId",
       allowNull: false,
@@ -12,6 +13,7 @@ function applyAssociations() {
     onDelete: "CASCADE",
   });
   PostsModel.belongsTo(UsersModel, {
+    as: "user",
     foreignKey: {
       name: "userId",
       allowNull: false,
@@ -21,30 +23,32 @@ function applyAssociations() {
 
   UsersModel.hasMany(CommentsModel, {
     foreignKey: {
-        name: "userId",
-        allowNull: false
+      name: "userId",
+      allowNull: false,
     },
     onDelete: "CASCADE",
   });
   CommentsModel.belongsTo(UsersModel, {
     foreignKey: {
-        name: "userId",
-        allowNull: false
+      name: "userId",
+      allowNull: false,
     },
     onDelete: "CASCADE",
   });
 
   PostsModel.hasMany(CommentsModel, {
+    as: "comments",
     foreignKey: {
-        name: "postId",
-        allowNull: false
+      name: "postId",
+      allowNull: false,
     },
     onDelete: "CASCADE",
   });
   CommentsModel.belongsTo(PostsModel, {
+    as: "comments",
     foreignKey: {
-        name: "postId",
-        allowNull: false
+      name: "postId",
+      allowNull: false,
     },
     onDelete: "CASCADE",
   });
