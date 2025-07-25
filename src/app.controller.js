@@ -1,9 +1,5 @@
 // @ts-check
-import {
-  sequelize,
-  syncAllModels,
-  testDbConnection,
-} from "./db/db.connection.js";
+import {syncAllModels, testDbConnection } from "./db/db.connection.js";
 import express from "express";
 import userRouter from "./modules/user/user.controller.js";
 import postRouter from "./modules/post/post.controller.js";
