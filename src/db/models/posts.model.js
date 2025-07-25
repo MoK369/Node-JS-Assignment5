@@ -20,6 +20,13 @@ export const PostsModel = sequelize.define(
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        checkContentLength(value) {
+          if (value.length <= 10) {
+            throw new Error("Content of post is too short");
+          }
+        },
+      },
     },
   },
   {
