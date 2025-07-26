@@ -1,5 +1,5 @@
 // @ts-check
-import {syncAllModels, testDbConnection } from "./db/db.connection.js";
+import { syncAllModels, testDbConnection } from "./db/db.connection.js";
 import express from "express";
 import userRouter from "./modules/user/user.controller.js";
 import postRouter from "./modules/post/post.controller.js";
@@ -36,7 +36,6 @@ async function bootstrap() {
     // Error Handling
     app.use((error, req, res, next) => {
       console.error({ error });
-      console.error({ errors: error.errors });
       console.error({ name: error.name });
       console.log({ message: error.message });
 
@@ -47,7 +46,8 @@ async function bootstrap() {
       }
       if (
         error.name.includes("SequelizeValidationError") ||
-        error.name.includes("SyntaxError")
+        error.name.includes("SyntaxError") ||
+        error.name.includes("SequelizeDatabaseError")
       ) {
         return res.status(400).json({ success: false, error: error.message });
       }

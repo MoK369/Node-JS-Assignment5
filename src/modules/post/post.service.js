@@ -12,7 +12,7 @@ export const createPost = async (req, res, next) => {
     const result = await instance.save();
     return res
       .status(201)
-      .json({ success: true, message: "post created!", post: result });
+      .json({ success: true, message: "post created!", body: result });
   } catch (error) {
     next(error);
   }

@@ -1,5 +1,5 @@
 // @ts-check
-import { INTEGER, Op } from "sequelize";
+import { Op } from "sequelize";
 import { CommentsModel } from "../../db/models/comments.model.js";
 import { CustomError } from "../../utils/custom_error.js";
 import { UsersModel } from "../../db/models/users.model.js";

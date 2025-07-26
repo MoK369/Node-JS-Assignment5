@@ -9,27 +9,38 @@ export const signup = async (req, res, next) => {
     const { password: password2, ...restUser } = result.dataValues;
     return res.status(201).json({
       success: true,
-      message: "User Created",
+      message: "User Created!",
       body: restUser,
     });
   } catch (error) {
     next(error);
   }
 };
-export const updateUser = async (req, res, next) => {
+export const updateOrCreateUser = async (req, res, next) => {
   try {
     const { name, email, role } = req.body;
     const userId = req.params.id;
-    const result = await UsersModel.update(
-      { name, email, role },
-      { where: { id: userId }, validate: true }
+    const result = await UsersModel.upsert(
+      {
+        id: userId,
+        name,
+        email,
+        password: "",
+        role,
+      },
+      {
+        validate: false,
+      }
     );
-    if (!result[0]) {
-      throw new CustomError("User Id not found", 404);
-    }
+    // @ts-ignore
+    const { password: password2, ...restUser } = result[0].dataValues;
     return res.json({
       success: true,
-      message: "User Updated",
+      message: "User Updated or Created!",
+      body: {
+        user: restUser,
+        created: result[1],
+      },
     });
   } catch (error) {
     next(error);
@@ -52,7 +63,7 @@ export const findUserByEmail = async (req, res, next) => {
 
     return res.json({
       success: true,
-      user: result,
+      body: result,
     });
   } catch (error) {
     next(error);
@@ -69,7 +80,7 @@ export const getUserByPK = async (req, res, next) => {
     }
     return res.json({
       success: true,
-      user: result,
+      body: result,
     });
   } catch (error) {
     next(error);
