@@ -1,4 +1,5 @@
 // @ts-check
+<<<<<<< HEAD
 import { syncAllModels, testDbConnection } from "./db/db.connection.js";
 import express from "express";
 import userRouter from "./modules/user/user.controller.js";
@@ -14,15 +15,28 @@ async function bootstrap() {
     applyAssociations();
     const synceModelsResult = await syncAllModels();
     if (!synceModelsResult) return;
+=======
+import express from "express";
+
+async function bootstrap() {
+  // Testing Database Connection
+  const result = true;
+  if (result) {
+    // Sync All Model to Database
+>>>>>>> orgin/master
 
     const app = express();
     const port = 3000;
 
     app.use(express.json());
     // APIs Routes
+<<<<<<< HEAD
     app.use("/user", userRouter);
     app.use("/post", postRouter);
     app.use("/comments", commentRouter);
+=======
+
+>>>>>>> orgin/master
     app.all("{/*d}", (req, res, next) => {
       return res
         .status(400)
