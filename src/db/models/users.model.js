@@ -65,7 +65,3 @@ UsersModel.addHook("beforeBulkUpdate", (user)=>{
     );
   }
 });
-
-export async function createUserInstance({ name, email, password, role }) {
-  return await UsersModel.create({ name, email, password, role });
-}

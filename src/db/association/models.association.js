@@ -29,6 +29,7 @@ function applyAssociations() {
     onDelete: "CASCADE",
   });
   CommentsModel.belongsTo(UsersModel, {
+    as:'user',
     foreignKey: {
       name: "userId",
       allowNull: false,
@@ -45,7 +46,7 @@ function applyAssociations() {
     onDelete: "CASCADE",
   });
   CommentsModel.belongsTo(PostsModel, {
-    as: "comments",
+    as: "post",
     foreignKey: {
       name: "postId",
       allowNull: false,
