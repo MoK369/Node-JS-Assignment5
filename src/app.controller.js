@@ -59,7 +59,7 @@ async function bootstrap() {
       if (error.name.includes("SequelizeForeignKeyConstraintError")) {
         return res
           .status(400)
-          .json({ success: false, error: "userId is not found" });
+          .json({ success: false, error: `${error.fields[0]} is not found` });
       }
       if (error.name.includes("CustomError")) {
         return res
